@@ -85,9 +85,6 @@ const createGalleryItem = image => {
   const listItemLink = document.createElement('a');
   listItemLink.classList.add('gallery-link');
   listItemLink.setAttribute('href', image.original);
-  listItemLink.addEventListener('click', function (e) {
-    e.preventDefault();
-  });
 
   const imageElement = document.createElement('img');
   imageElement.classList.add('gallery-image');
@@ -107,11 +104,3 @@ const addGalleryItem = images => {
 };
 
 addGalleryItem(images);
-
-galleryList.addEventListener('click', handleImageClick);
-
-function handleImageClick(event) {
-  if (event.target === event.currentTarget) {
-    return;
-  }
-}
