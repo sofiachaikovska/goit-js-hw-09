@@ -2,9 +2,10 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 document.addEventListener('DOMContentLoaded', function () {
+  addGalleryItem(images);
   const options = {
     captionsData: 'alt',
-    captionsDelayTime: 250,
+    captionsDelay: 250,
   };
 
   const lightbox = new SimpleLightbox('.gallery-link', options);
@@ -102,5 +103,3 @@ const addGalleryItem = images => {
   const galleryItems = images.map(createGalleryItem);
   galleryList.append(...galleryItems);
 };
-
-addGalleryItem(images);

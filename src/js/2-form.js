@@ -3,33 +3,58 @@ const STORAGE_KEY = 'feedback-form-state';
 const form = document.querySelector('.feedback-form');
 
 form.addEventListener('submit', formSubmitHandler);
-form.addEventListener('input', textareaHandler);
+form.addEventListener('input', inputHandler);
 
 function formSubmitHandler(event) {
   event.preventDefault();
 
-  localStorage.removeItem(STORAGE_KEY);
+  const emailInput = document.querySelector('.email');
+  const messageInput = document.querySelector('.message');
+
+  const formData = {
+    email: emailInput.value,
+    message: messageInput.value,
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+
   event.currentTarget.reset();
+  console.log(formData);
 }
 
-function textareaHandler(event) {
-  if (event.target.classList.contains('message')) {
-    const message = event.target.value;
-    localStorage.setItem(STORAGE_KEY, message);
+function inputHandler(event) {
+  if (
+    event.target.classList.contains('email') ||
+    event.target.classList.contains('message')
+  ) {
+    updateLocalStorage();
   }
 }
 
-function setTextarea() {
-  const savedMessage = localStorage.getItem(STORAGE_KEY);
+function updateLocalStorage() {
+  const emailInput = document.querySelector('.email');
+  const messageInput = document.querySelector('.message');
 
-  console.log(savedMessage);
+  const formData = {
+    email: emailInput.value,
+    message: messageInput.value,
+  };
 
-  if (savedMessage) {
-    const textareas = document.querySelectorAll('.message');
-    textareas.forEach(textarea => {
-      textarea.value = savedMessage;
-    });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+}
+
+function setFormFields() {
+  const savedData = localStorage.getItem(STORAGE_KEY);
+
+  const emailInput = document.querySelector('.email');
+  const messageInput = document.querySelector('.message');
+
+  if (savedData) {
+    const { email, message } = JSON.parse(savedData);
+
+    emailInput.value = email;
+    messageInput.value = message;
   }
 }
 
-setTextarea();
+setFormFields();
