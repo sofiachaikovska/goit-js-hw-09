@@ -11,15 +11,21 @@ function formSubmitHandler(event) {
   const emailInput = document.querySelector('.email');
   const messageInput = document.querySelector('.message');
 
-  const formData = {
-    email: emailInput.value,
-    message: messageInput.value,
-  };
+  if (emailInput.value && messageInput.value) {
+    const formData = {
+      email: emailInput.value,
+      message: messageInput.value,
+    };
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 
-  event.currentTarget.reset();
-  console.log(formData);
+    event.currentTarget.reset();
+    console.log(formData);
+
+    localStorage.removeItem(STORAGE_KEY);
+  } else {
+    alert('Please fill in both email and message fields before submitting.');
+  }
 }
 
 function inputHandler(event) {
